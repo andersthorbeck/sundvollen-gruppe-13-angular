@@ -24,7 +24,7 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
     console.log("hent timelister. userid: " + $scope.userid)
     $scope.entries = Timesheet.query({userId : $scope.userid}).$promise.then(function(data){
       console.log(data);
-      $scope.getLastTimeliste(data[0]['periode_id'])
+      $scope.getLastTimeliste(data[0]['id'])
     });
     console.log("$scope.entries: " + $scope.entries)
     $scope.newEntry = {};
@@ -39,9 +39,12 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
 //    if (timelister != null && timelister[0] != null) {
 //      var periodeId = timelister[0]['periode_id'] // Antar siste timeliste er først i arrayen
       console.log("periodeId: " + periodeId)
-      var timeliste = TimesheetRows.query({userId : $scope.userid, timelisteId: periodeId});
-      $scope.rows = timeliste['timeliste_rader']
-      console.log("rader: " + $scope.rows)
+      TimesheetRows.query({userId : $scope.userid, timelisteId: periodeId}, function(timeliste) {
+        console.log("Fikk rader: " + timeliste)
+        $scope.rows = timeliste['timeliste_rader']
+      });
+      //$scope.rows = timeliste['timeliste_rader']
+      //console.log("rader: " + $scope.rows)
 //    }
   }
 

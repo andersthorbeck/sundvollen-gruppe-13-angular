@@ -7,5 +7,5 @@ timeregServices.factory('Timesheet', ['$resource', function ($resource) {
 }]);
 
 timeregServices.factory('TimesheetRows', ['$resource', function ($resource) {
-  return $resource('http://localhost:9090/brukers/:userId/timelistes/:timelisteId.json',{},{}, {withCredentials:true});
+  return $resource('http://localhost:9090/brukers/:userId/timelistes/:timelisteId.json',{},{'query':{isArray:false}}, {withCredentials:true});
 }]);
