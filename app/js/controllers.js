@@ -10,6 +10,8 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
  
   $scope.entries = []
   $scope.rows = []
+  $scope.nyAktivitetRef = ""
+  $scope.aktiviteter = []
 
   $scope.logout = function(){
     console.log("Log off" + $scope.userid + " " + $scope.username)
@@ -32,7 +34,6 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
     $scope.newEntry = {};
   }
 
-  //129
   $scope.getLastTimeliste = function(timelisteId) {
     console.log("getLastTimeliste")
     console.log("timelisteId: " + timelisteId)
@@ -46,6 +47,12 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
       };
       $scope.rows = timeliste['timeliste_rader']
     });
+  }
+
+  $scope.nyAktivitet = function() {
+    var aktivitet = {'ref': $scope.nyAktivitetRef, 'start': '09:00', 'stopp': '12:00', 'tid': '3,0'};
+    $scope.aktiviteter.push(aktivitet);
+    $scope.nyAktivitetRef = "";
   }
 
   $scope.login = function () {
