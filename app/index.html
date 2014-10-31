@@ -15,23 +15,37 @@
     </head>
     
     <body ng-controller="TimeSheetCtrl">
-    <h2 >Timeliste browser</h2>
+        <h2 >Timeliste browser</h2>
     
         <div id="app">
-        <div ng-show="userloggedin">
-            <label>Logged in as: {{username}}</label>
-            <button ng-click="logout()">Log out</button>
-        </div>
+            <div ng-show="userloggedin">
+                <label>Logged in as: {{username}}</label>
+                <button ng-click="logout()">Log out</button>
+            </div>
 
             <form name="loginForm" ng-submit="login()">
-                    <label ng-hide="userloggedin">username</label>
-                    <input ng-hide="userloggedin" ng-model="credentials.username" type="text" required>
-                    <label ng-hide="userloggedin">password</label>
-                    <input ng-hide="userloggedin" ng-model="credentials.password" type="text" required>
-                    <button ng-hide="userloggedin" type="submit">Login</button>
+                <label ng-hide="userloggedin">username</label>
+                <input ng-hide="userloggedin" ng-model="credentials.username" type="text" required>
+                <label ng-hide="userloggedin">password</label>
+                <input ng-hide="userloggedin" ng-model="credentials.password" type="text" required>
+                <button ng-hide="userloggedin" type="submit">Login</button>
             </form>
-         <button ng-show="userloggedin" ng-click="getTimelister()">Hent timelister</button>
+            <button ng-show="userloggedin" ng-click="getTimelister()">Hent timelister</button>
+            <div ng-show="userloggedin">
+                
+            </div>            
             <table ng-show="userloggedin" class="pure-table pure-table-horizontal">
+                <thead>
+                    <tr>
+                        <th>Blah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in rows">
+                        <td>{{row}}</td>
+                    </tr>
+                </tbody>
+                <!--
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -42,12 +56,14 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="entry in entries">
+                        <td>{{entry}}</td>
                         <td>{{entry.id}}</td>
                         <td>{{entry.periode.aar}}</td>
                         <td>{{entry.periode.mnd}}</td>
                         <td>{{entry.status}}</td>
                     </tr>
                 </tbody>
+                -->
             </table>            
         </div>
 

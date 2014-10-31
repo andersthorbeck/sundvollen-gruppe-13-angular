@@ -6,8 +6,11 @@ timeregApp.config(['$httpProvider', function($httpProvider) {
   $httpProvider.defaults.withCredentials = true;
 }])
 
-function TimeSheetCtrl ($scope, $http, Timesheet) {
+function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
  
+  $scope.entries = []
+  $scope.rows = []
+
   $scope.logout = function(){
     console.log("Log off" + $scope.userid + " " + $scope.username)
 
@@ -18,10 +21,40 @@ function TimeSheetCtrl ($scope, $http, Timesheet) {
 
 
   $scope.getTimelister = function(){
-    console.log("hent timelister")
-    $scope.entries = Timesheet.query({userId : $scope.userid});
+    console.log("hent timelister. userid: " + $scope.userid)
+    $scope.entries = Timesheet.query({userId : $scope.userid}).$promise.then(function(data){
+      console.log(data);
+      $scope.getLastTimeliste(data[0]['periode_id'])
+    });
+    console.log("$scope.entries: " + $scope.entries)
     $scope.newEntry = {};
   }
+
+  //129
+  $scope.getLastTimeliste = function(periodeId) {
+    console.log("getLastTimeliste")
+    //timelister = $scope.entries
+    //$scope.getTimelister()
+    //console.log("timelister: " + timelister)
+//    if (timelister != null && timelister[0] != null) {
+//      var periodeId = timelister[0]['periode_id'] // Antar siste timeliste er først i arrayen
+      console.log("periodeId: " + periodeId)
+      var timeliste = TimesheetRows.query({userId : $scope.userid, timelisteId: periodeId});
+      $scope.rows = timeliste['timeliste_rader']
+      console.log("rader: " + $scope.rows)
+//    }
+  }
+
+/*
+  $scope.$watch(
+    function(scope) {return $scope.entries},
+    function(newVal, oldVal) {
+      console.log("entries has changed: " + $scope.entries)
+      console.log("newVal: " + newVal + ", oldVal: " + oldVal)
+      $scope.getLastTimeliste(oldVal)
+    }
+  );
+*/
 
   $scope.login = function () {
 
@@ -47,4 +80,4 @@ function TimeSheetCtrl ($scope, $http, Timesheet) {
 }
 
 
-timeregApp.controller('TimeSheetCtrl', ['$scope', '$http', 'Timesheet', TimeSheetCtrl]);
+timeregApp.controller('TimeSheetCtrl', ['$scope', '$http', 'Timesheet', 'TimesheetRows', TimeSheetCtrl]);
