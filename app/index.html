@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="no_SV" ng-app="timeregApp">
+    <head>
+        <meta charset="utf-8">
+        <title>Angular App</title>
+        <meta name="viewport" content="width=device-width">
+        <!-- see http://purecss.io/  -->
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+
+        <script src="js/services.js"></script>
+        <script src="js/controllers.js"></script>
+    </head>
+    
+    <body ng-controller="TimeSheetCtrl">
+    <h2 >Timeliste browser</h2>
+    
+        <div id="app">
+        <div ng-show="userloggedin">
+            <label>Logged in as: {{username}}</label>
+            <button ng-click="logout()">Log out</button>
+        </div>
+
+            <form name="loginForm" ng-submit="login()">
+                    <label ng-hide="userloggedin">username</label>
+                    <input ng-hide="userloggedin" ng-model="credentials.username" type="text" required>
+                    <label ng-hide="userloggedin">password</label>
+                    <input ng-hide="userloggedin" ng-model="credentials.password" type="text" required>
+                    <button ng-hide="userloggedin" type="submit">Login</button>
+            </form>
+         <button ng-show="userloggedin" ng-click="getTimelister()">Hent timelister</button>
+            <table ng-show="userloggedin" class="pure-table pure-table-horizontal">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>periode</th>
+                        <th>måned</th>
+                        <th>Til</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="entry in entries">
+                        <td>{{entry.id}}</td>
+                        <td>{{entry.periode.aar}}</td>
+                        <td>{{entry.periode.mnd}}</td>
+                        <td>{{entry.status}}</td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
+
+    </body>
+</html>
