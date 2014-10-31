@@ -40,7 +40,9 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
       console.log("Fikk rader: " + timeliste)
       var rader = timeliste['timeliste_rader']
       for (var i = 0; i < rader.length; i++) {
-        rader[i]['referanse'] = 'J-' + i;
+        if (!rader[i]['referanse']) {
+          rader[i]['referanse'] = 'J-' + i;
+        }
       };
       $scope.rows = timeliste['timeliste_rader']
     });
