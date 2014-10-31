@@ -17,6 +17,8 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
     $scope.userid = '';
     $scope.username = '';
     $scope.userloggedin = false;
+    $scope.entries = []
+    $scope.rows = []
   }
 
 
@@ -31,33 +33,18 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
   }
 
   //129
-  $scope.getLastTimeliste = function(periodeId) {
+  $scope.getLastTimeliste = function(timelisteId) {
     console.log("getLastTimeliste")
-    //timelister = $scope.entries
-    //$scope.getTimelister()
-    //console.log("timelister: " + timelister)
-//    if (timelister != null && timelister[0] != null) {
-//      var periodeId = timelister[0]['periode_id'] // Antar siste timeliste er først i arrayen
-      console.log("periodeId: " + periodeId)
-      TimesheetRows.query({userId : $scope.userid, timelisteId: periodeId}, function(timeliste) {
-        console.log("Fikk rader: " + timeliste)
-        $scope.rows = timeliste['timeliste_rader']
-      });
-      //$scope.rows = timeliste['timeliste_rader']
-      //console.log("rader: " + $scope.rows)
-//    }
+    console.log("timelisteId: " + timelisteId)
+    TimesheetRows.query({userId : $scope.userid, timelisteId: timelisteId}, function(timeliste) {
+      console.log("Fikk rader: " + timeliste)
+      var rader = timeliste['timeliste_rader']
+      for (var i = 0; i < rader.length; i++) {
+        rader[i]['referanse'] = 'J-' + i;
+      };
+      $scope.rows = timeliste['timeliste_rader']
+    });
   }
-
-/*
-  $scope.$watch(
-    function(scope) {return $scope.entries},
-    function(newVal, oldVal) {
-      console.log("entries has changed: " + $scope.entries)
-      console.log("newVal: " + newVal + ", oldVal: " + oldVal)
-      $scope.getLastTimeliste(oldVal)
-    }
-  );
-*/
 
   $scope.login = function () {
 
