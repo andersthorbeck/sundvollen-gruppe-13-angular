@@ -30,6 +30,7 @@
                 <input ng-hide="userloggedin" ng-model="credentials.password" type="text" required>
                 <button ng-hide="userloggedin" type="submit">Login</button>
             </form>
+            <!--
             <button ng-show="userloggedin" ng-click="getTimelister()">Hent timelister</button>
             <table ng-show="userloggedin" class="pure-table pure-table-horizontal">
                 <thead>
@@ -42,26 +43,8 @@
                         <td>{{row.referanse}}</td>
                     </tr>
                 </tbody>
-                <!--
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>periode</th>
-                        <th>måned</th>
-                        <th>Til</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="entry in entries">
-                        <td>{{entry}}</td>
-                        <td>{{entry.id}}</td>
-                        <td>{{entry.periode.aar}}</td>
-                        <td>{{entry.periode.mnd}}</td>
-                        <td>{{entry.status}}</td>
-                    </tr>
-                </tbody>
-                -->
             </table>            
+            -->
             <div ng-show="userloggedin">
                 <form name="newActivity" ng-submit="nyAktivitet()" ng-hide="dagAvsluttet">
                     <input type="text" required ng-model="nyAktivitetRef">
@@ -70,10 +53,10 @@
                 <table>
                     <thead>
                         <tr>
-                            <td>Aktivitet ref</td>
-                            <td>Starttidspunkt</td>
-                            <td>Stopptidspunkt</td>
-                            <td>Tid brukt</td>
+                            <td>Aktivitet ref&nbsp;&nbsp;&nbsp;</td>
+                            <td>Starttidspunkt&nbsp;&nbsp;&nbsp;</td>
+                            <td>Stopptidspunkt&nbsp;&nbsp;&nbsp;</td>
+                            <td>Tid brukt&nbsp;&nbsp;&nbsp;</td>
                         </tr>
                     </thead>
                     <tbody>
