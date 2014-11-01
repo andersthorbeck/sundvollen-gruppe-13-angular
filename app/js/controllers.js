@@ -1,6 +1,18 @@
 'use strict';
 
-var timeregApp = angular.module('timeregApp', ['timeregServices']);
+var minutesFilter = function() {
+  return function(minutes) {
+    if (typeof minutes !== "number") {
+      return minutes;
+    }
+    var hours = Math.floor(minutes/60);
+    var restMinutes = Math.round(minutes - (60 * hours));
+    return hours + " timer " + restMinutes + " minutter";
+  };
+}
+
+
+var timeregApp = angular.module('timeregApp', ['timeregServices']).filter('minutes', minutesFilter);
 
 timeregApp.config(['$httpProvider', function($httpProvider) {
   $httpProvider.defaults.withCredentials = true;
