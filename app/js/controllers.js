@@ -54,11 +54,17 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
     if ($scope.aktiviteter.length > 0) {
       var forrigeAktivitet = $scope.aktiviteter[$scope.aktiviteter.length - 1];
       forrigeAktivitet['stopp'] = now;
-      forrigeAktivitet['tid'] = "3,0";
+      forrigeAktivitet['tid'] = $scope.dateDiffMinutes(forrigeAktivitet['start'], now);
     }
     var aktivitet = {'ref': $scope.nyAktivitetRef, 'start': now, 'stopp': 'in progress', 'tid': 'in progress'};
     $scope.aktiviteter.push(aktivitet);
     $scope.nyAktivitetRef = "";
+  }
+
+  // Input as Date object
+  $scope.dateDiffMinutes = function(start, end) {
+    // Date gjøres om til millisekunder siden epoch i arithmetisk operasjon
+    return ((end - start)/1000)/60;
   }
 
   $scope.login = function () {
