@@ -25,6 +25,26 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
   $scope.nyAktivitetRef = ""
   $scope.aktiviteter = []
 
+  // Input as Date object
+  var dateDiffMinutes = function(start, end) {
+    // Date gjøres om til millisekunder siden epoch i arithmetisk operasjon
+    return ((end - start)/1000)/60;
+  }
+
+  var avsluttSisteAktivitet = function(now) {
+    if ($scope.aktiviteter.length > 0) {
+      var forrigeAktivitet = $scope.aktiviteter[$scope.aktiviteter.length - 1];
+      forrigeAktivitet['stopp'] = now;
+      forrigeAktivitet['tid'] = dateDiffMinutes(forrigeAktivitet['start'], now);
+    }
+  }
+
+  // Denne funksjonen er kun for debug purposes, for å unngå å måtte
+  // vente i en time for å føre en time.
+  var hastenTime = function(date) {
+    return new Date(date.getTime() * 60);
+  }
+
   $scope.logout = function(){
     console.log("Log off" + $scope.userid + " " + $scope.username)
 
@@ -62,27 +82,11 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
   }
 
   $scope.nyAktivitet = function() {
-    var now = $scope.hastenTime(new Date);
-    if ($scope.aktiviteter.length > 0) {
-      var forrigeAktivitet = $scope.aktiviteter[$scope.aktiviteter.length - 1];
-      forrigeAktivitet['stopp'] = now;
-      forrigeAktivitet['tid'] = $scope.dateDiffMinutes(forrigeAktivitet['start'], now);
-    }
+    var now = hastenTime(new Date);
+    avsluttSisteAktivitet(now);
     var aktivitet = {'ref': $scope.nyAktivitetRef, 'start': now, 'stopp': 'in progress', 'tid': 'in progress'};
     $scope.aktiviteter.push(aktivitet);
     $scope.nyAktivitetRef = "";
-  }
-
-  // Denne funksjonen er kun for debug purposes, for å unngå å måtte
-  // vente i en time for å føre en time.
-  $scope.hastenTime = function(date) {
-    return new Date(date.getTime() * 60);
-  }
-
-  // Input as Date object
-  $scope.dateDiffMinutes = function(start, end) {
-    // Date gjøres om til millisekunder siden epoch i arithmetisk operasjon
-    return ((end - start)/1000)/60;
   }
 
   $scope.login = function () {
