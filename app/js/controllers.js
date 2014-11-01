@@ -50,7 +50,7 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
   }
 
   $scope.nyAktivitet = function() {
-    var now = $scope.timeNow();
+    var now = new Date;
     if ($scope.aktiviteter.length > 0) {
       var forrigeAktivitet = $scope.aktiviteter[$scope.aktiviteter.length - 1];
       forrigeAktivitet['stopp'] = now;
@@ -59,12 +59,6 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
     var aktivitet = {'ref': $scope.nyAktivitetRef, 'start': now, 'stopp': 'in progress', 'tid': 'in progress'};
     $scope.aktiviteter.push(aktivitet);
     $scope.nyAktivitetRef = "";
-  }
-
-  $scope.timeNow = function() {
-    var date = new Date;
-    return ((date.getHours() < 10)?"0":"") + date.getHours()
-           +":"+ ((date.getMinutes() < 10)?"0":"") + date.getMinutes();
   }
 
   $scope.login = function () {

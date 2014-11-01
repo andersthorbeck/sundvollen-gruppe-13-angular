@@ -79,8 +79,8 @@
                     <tbody>
                         <tr ng-repeat="aktivitet in aktiviteter">
                             <td>{{aktivitet.ref}}</td>
-                            <td>{{aktivitet.start}}</td>
-                            <td>{{aktivitet.stopp}}</td>
+                            <td>{{aktivitet.start | date:'HH:mm'}}</td>
+                            <td>{{aktivitet.stopp | date:'HH:mm'}}</td>
                             <td>{{aktivitet.tid}}</td>
                         </tr>
                     </tbody>
