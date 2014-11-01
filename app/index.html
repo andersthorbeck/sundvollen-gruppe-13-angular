@@ -7,16 +7,21 @@
         <!-- see http://purecss.io/  -->
         <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
         <link rel="stylesheet" href="styles/main.css">
-        <script src="bower_components/angular/angular.min.js"></script>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Play:700,400' type='text/css'>        <script src="bower_components/angular/angular.min.js"></script>
         <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+        <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
+        <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerGestures/pointergestures.js"></script>
+        <script type="text/javascript" src="http://iop.io/js/iopctrl.js"></script>
 
         <script src="js/services.js"></script>
+        <script src="js/chartServices.js"></script>
         <script src="js/controllers.js"></script>
-    </head>
+        <script src="bower_components/d3/d3.js"></script>
+        <script src="bower_components/nvd3/nv.d3.js"></script>
+     </head>
     
     <body ng-controller="TimeSheetCtrl">
     <h2 >Timeliste browser</h2>
-    
         <div id="app">
         <div ng-show="userloggedin">
             <label>Logged in as: {{username}}</label>
@@ -50,6 +55,26 @@
                 </tbody>
             </table>            
         </div>
+
+     <button ng-click="displayChart()">Dashboard</button>
+        <table ng-show="displayDashboard">
+            <th>MONTH OVERVIEW</th>
+            <tr>
+                <td><div class="speedo" id="workSpeedChartArea"/></td>
+                <td><div class="speedo" id="faktureringChartArea"/></td>
+                <td><div id="chartArea"/></td>
+            </tr>
+            <tr>
+                <td>SPEED (hours/day)</td>
+                <td>FAKTURERINGSGRAD (%)</td>
+                <td>OVERVIEW per category
+                    <button ng-click="toggleChartType()">Toggle ChartType</button>
+                </td>
+            </tr>
+        </table>
+        
+        
+
 
     </body>
 </html>
