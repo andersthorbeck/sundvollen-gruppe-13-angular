@@ -45,6 +45,10 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
     return new Date(date.getTime() * 60);
   }
 
+  var getNow = function() {
+    return hastenTime(new Date);
+  }
+
   $scope.logout = function(){
     console.log("Log off" + $scope.userid + " " + $scope.username)
 
@@ -82,11 +86,15 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
   }
 
   $scope.nyAktivitet = function() {
-    var now = hastenTime(new Date);
+    var now = getNow();
     avsluttSisteAktivitet(now);
     var aktivitet = {'ref': $scope.nyAktivitetRef, 'start': now, 'stopp': 'in progress', 'tid': 'in progress'};
     $scope.aktiviteter.push(aktivitet);
     $scope.nyAktivitetRef = "";
+  }
+
+  $scope.avsluttDagen = function() {
+    avsluttSisteAktivitet(getNow());
   }
 
   $scope.login = function () {
