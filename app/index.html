@@ -63,7 +63,7 @@
                 -->
             </table>            
             <div ng-show="userloggedin">
-                <form name="newActivity" ng-submit="nyAktivitet()">
+                <form name="newActivity" ng-submit="nyAktivitet()" ng-hide="dagAvsluttet">
                     <input type="text" required ng-model="nyAktivitetRef">
                     <button type="submit">Start ny aktivitet</button>
                 </form>
@@ -85,7 +85,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <button ng-click="avsluttDagen()">Ferdig for i dag</button>
+                <button ng-click="avsluttDagen()" ng-hide="dagAvsluttet">Ferdig for i dag</button>
             </div>
         </div>
 

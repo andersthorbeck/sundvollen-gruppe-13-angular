@@ -24,6 +24,7 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
   $scope.rows = []
   $scope.nyAktivitetRef = ""
   $scope.aktiviteter = []
+  $scope.dagAvsluttet = false;
 
   // Input as Date object
   var dateDiffMinutes = function(start, end) {
@@ -95,6 +96,7 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
 
   $scope.avsluttDagen = function() {
     avsluttSisteAktivitet(getNow());
+    $scope.dagAvsluttet = true;
   }
 
   $scope.login = function () {
