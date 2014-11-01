@@ -50,7 +50,7 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
   }
 
   $scope.nyAktivitet = function() {
-    var now = new Date;
+    var now = $scope.hastenTime(new Date);
     if ($scope.aktiviteter.length > 0) {
       var forrigeAktivitet = $scope.aktiviteter[$scope.aktiviteter.length - 1];
       forrigeAktivitet['stopp'] = now;
@@ -59,6 +59,12 @@ function TimeSheetCtrl ($scope, $http, Timesheet, TimesheetRows) {
     var aktivitet = {'ref': $scope.nyAktivitetRef, 'start': now, 'stopp': 'in progress', 'tid': 'in progress'};
     $scope.aktiviteter.push(aktivitet);
     $scope.nyAktivitetRef = "";
+  }
+
+  // Denne funksjonen er kun for debug purposes, for å unngå å måtte
+  // vente i en time for å føre en time.
+  $scope.hastenTime = function(date) {
+    return new Date(date.getTime() * 60);
   }
 
   // Input as Date object
